@@ -1,0 +1,33 @@
+var Waveform = function(container){
+  this.options = {}
+  levels  = []
+  
+  var canvasElement = document.createElement("canvas");
+  container.appendChild(canvasElement);
+  canvasElement.style.width  = container.clientWidth + "px";
+  canvasElement.style.height = container.clientHeight + "px";
+  
+  var ctx = canvasElement.getContext('2d');
+  var ctxWidth = parseInt(ctx.canvas.width, 10);
+  var ctxHeight = parseInt(ctx.canvas.height, 10);
+  ctx.clearRect(0, 0, ctxWidth, ctxHeight);
+  // reset canvas before drawing
+  // draw the waveform
+  ctx.fillStyle = '#333';
+  console.log(ctxWidth);
+  console.log(ctxHeight);
+  
+  ctx.fillRect(0, 0, ctxWidth  , ctxHeight / 2);
+  
+  return {
+    getLevels: function(){ return levels; },
+    pushLevel: function(i) {
+      levels.push(i);
+    },
+    setPosition: function(pct){
+    },
+    redraw: function(){
+      console.log('123')
+    }
+  }
+}
