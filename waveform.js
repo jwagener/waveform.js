@@ -28,7 +28,7 @@
     this.container = options.container;
     this.canvas = options.canvas;
     this.data = options.data || [];
-    color = options.color || "#0000ff";
+    color = options.color || "#000000";
     if (!(this.canvas != null)) {
       if (this.container) {
         if (this.canvas == null) {
@@ -50,20 +50,19 @@
         return ctx.clearRect(0, 0, width, height);
       },
       setDataWithLimit: function(data, limit, defaultValue) {
-        var i, _ref, _results;
+        var dataToSet, i, _ref;
         if (defaultValue == null) {
           defaultValue = 0.0;
         }
+        dataToSet = [];
         if (data.length > limit) {
-          return this.data = data.slice(data.length - limit, data.length);
+          dataToSet = data.slice(data.length - limit, data.length);
         } else {
-          this.data = [];
-          _results = [];
           for (i = 0, _ref = limit - 1; 0 <= _ref ? i <= _ref : i >= _ref; 0 <= _ref ? i++ : i--) {
-            _results.push(this.data[i] = data[i] || defaultValue);
+            dataToSet[i] = data[i] || defaultValue;
           }
-          return _results;
         }
+        return this.setDataInterpolated(dataToSet);
       },
       setDataInterpolated: function(data) {
         var avg, c, i, interpolated, sauce, step, total;

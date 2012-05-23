@@ -18,7 +18,7 @@ window.Waveform = (options={}) ->
   @container = options.container
   @canvas    = options.canvas
   @data      = options.data || []
-  color = options.color || "#0000ff"
+  color = options.color || "#000000"
 
   if !@canvas?
     if @container
@@ -39,12 +39,13 @@ window.Waveform = (options={}) ->
       ctx.clearRect(0, 0, width, height)
 
     setDataWithLimit: (data, limit, defaultValue=0.0) ->
+      dataToSet = []
       if data.length > limit
-        @data = data.slice(data.length - limit, data.length)
+        dataToSet = data.slice(data.length - limit, data.length)
       else
-        @data = []
         for i in [0..limit-1]
-          @data[i] = data[i] || defaultValue
+          dataToSet[i] = data[i] || defaultValue
+      @setDataInterpolated(dataToSet)
 
     setDataInterpolated: (data) ->
       total = data.length
