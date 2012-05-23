@@ -18,7 +18,8 @@ window.Waveform = (options={}) ->
   @container = options.container
   @canvas    = options.canvas
   @data      = options.data || []
-  color = options.color || "#000000"
+  outerColor = options.outerColor || "#FFFFFF"
+  innerColor = options.innerColor || "#000000"
 
   if !@canvas?
     if @container
@@ -36,7 +37,8 @@ window.Waveform = (options={}) ->
     container: @container
     data:      @data
     clear: ->
-      ctx.clearRect(0, 0, width, height)
+      ctx.fillStyle = outerColor
+      ctx.fillRect(0, 0, width, height)
 
     setDataWithLimit: (data, limit, defaultValue=0.0) ->
       dataToSet = []
@@ -77,11 +79,12 @@ window.Waveform = (options={}) ->
 
     redraw: () ->
       @clear()
-      ctx.fillStyle = color
+      ctx.fillStyle = innerColor
       middle = height / 2
       i = 0
       for d in @data
         t = width / @data.length
+        ctx.clearRect t*i, middle - middle * d, t, (middle * d * 2)
         ctx.fillRect t*i, middle - middle * d, t, (middle * d * 2)
         i++
   }

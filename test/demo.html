@@ -39,8 +39,8 @@
         CoffeeScript.load("../waveform.coffee?" + Math.random())
         window.waveform = new Waveform({
           container: $("#container")[0],
-          background: "#ffffff",
-          foreground: "transparent" // transparent
+          outerColor: "#FF0000",
+          innerColor: "transparent" // transparent
         });
 
         // 10000 random samples
@@ -64,7 +64,7 @@
           waveform.setDataWithLimit(recordingSamples, testdata.length / 2);
           waveform.redraw()
           ti++;
-        }, 50);
+        }, 1000);
       });
     </script>
   </head>

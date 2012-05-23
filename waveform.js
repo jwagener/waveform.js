@@ -1,6 +1,6 @@
 (function() {
   window.Waveform = function(options) {
-    var color, createCanvas, ctx, height, patchCanvasForIE, width;
+    var createCanvas, ctx, height, innerColor, outerColor, patchCanvasForIE, width;
     if (options == null) {
       options = {};
     }
@@ -28,7 +28,8 @@
     this.container = options.container;
     this.canvas = options.canvas;
     this.data = options.data || [];
-    color = options.color || "#000000";
+    outerColor = options.outerColor || "#FFFFFF";
+    innerColor = options.innerColor || "#000000";
     if (!(this.canvas != null)) {
       if (this.container) {
         if (this.canvas == null) {
@@ -47,7 +48,8 @@
       container: this.container,
       data: this.data,
       clear: function() {
-        return ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = outerColor;
+        return ctx.fillRect(0, 0, width, height);
       },
       setDataWithLimit: function(data, limit, defaultValue) {
         var dataToSet, i, _ref;
@@ -101,7 +103,7 @@
       redraw: function() {
         var d, i, middle, t, _i, _len, _ref, _results;
         this.clear();
-        ctx.fillStyle = color;
+        ctx.fillStyle = innerColor;
         middle = height / 2;
         i = 0;
         _ref = this.data;
@@ -109,6 +111,7 @@
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           d = _ref[_i];
           t = width / this.data.length;
+          ctx.clearRect(t * i, middle - middle * d, t, middle * d * 2);
           ctx.fillRect(t * i, middle - middle * d, t, middle * d * 2);
           _results.push(i++);
         }
