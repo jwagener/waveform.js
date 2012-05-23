@@ -52,7 +52,8 @@
         for(var i=0; i< testdata.length; i++){
           testdata[i] = (100 - testdata[i]) / 100;
         }
-        waveform.data = testdata;
+        //waveform.data = testdata;
+        waveform.setDataInterpolated(testdata);
         waveform.redraw();
         
         // recording samples
